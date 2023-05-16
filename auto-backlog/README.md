@@ -11,7 +11,7 @@ Creation of Epics, Features, and User Stories with titles and descriptions
 
 ### Installation
 
-git clone https://github.com/yourusername/AutoBacklog.git
+git clone https://github.com/devdeer-kevin/AutoBacklog/tree/main/auto-backlog
 cd AutoBacklog
 npm install
 
