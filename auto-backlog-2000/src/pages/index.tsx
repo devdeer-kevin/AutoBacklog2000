@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export default function Home() {
-    const [animalInput, setAnimalInput] = useState('');
+    const [requirementInput, setRequirementInput] = useState('');
     const [result, setResult] = useState();
 
     async function onSubmit(event: { preventDefault: () => void }) {
@@ -12,7 +12,7 @@ export default function Home() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ animal: animalInput }),
+                body: JSON.stringify({ requirement: requirementInput }),
             });
 
             const data = await response.json();
@@ -21,7 +21,7 @@ export default function Home() {
             }
 
             setResult(data.result);
-            setAnimalInput('');
+            setRequirementInput('');
         } catch (error) {
             // Consider implementing your own error handling logic here
             console.error(error);
@@ -53,8 +53,8 @@ export default function Home() {
                         <form onSubmit={onSubmit}>
                             <textarea
                                 name="animal"
-                                value={animalInput}
-                                onChange={(e) => setAnimalInput(e.target.value)}
+                                value={requirementInput}
+                                onChange={(e) => setRequirementInput(e.target.value)}
                                 className="textarea bg-slate-50 w-full h-96 p-4 rounded-md shadow-md resize-non focus:outline-none"
                                 placeholder="Enter your requirement engineering notes here..."
                             />
