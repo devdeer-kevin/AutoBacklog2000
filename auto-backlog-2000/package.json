@@ -1,5 +1,5 @@
 {
-  "name": "auto-backlog",
+  "name": "auto-backlog-2000",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,11 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "20.1.7",
+    "@types/node": "20.2.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
-    "daisyui": "^2.51.6",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "next": "13.4.2",
