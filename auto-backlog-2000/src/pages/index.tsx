@@ -30,7 +30,7 @@ export default function Home() {
     }
     return (
         <main className="grid grid-flow-row justify-items-center w-full min-h-screen font-mono bg-indigo-50">
-            <nav className="navbar w-full shadow-sm outline h-16 px-8">
+            <nav className="navbar w-full shadow-sm h-16 px-8">
                 <div className="grid w-full grid-cols-2 items-center">
                     <div className="flex">
                         <h1 className="text-md leading-8 font-bold text-indigo-800">Auto Backlog 2000</h1>
