@@ -1,11 +1,18 @@
 import { Configuration, OpenAIApi } from 'openai';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
+/**
+ * Generates a backlog from a requirement engineering text
+ *
+ * @param { NextApiRequest } req Request object
+ * @param {NextApiResponse} res Response object
+ */
 
-export default async function (req, res) {
+export default async function checkYoutubeId(req: NextApiRequest, res: NextApiResponse) {
     if (!configuration.apiKey) {
         res.status(500).json({
             error: {
@@ -19,7 +26,7 @@ export default async function (req, res) {
     if (backlog.trim().length === 0) {
         res.status(400).json({
             error: {
-                message: 'Please enter a valid notes',
+                message: 'Please enter valid notes',
             },
         });
         return;
@@ -33,7 +40,7 @@ export default async function (req, res) {
             max_tokens: 200,
         });
         res.status(200).json({ result: completion.data.choices[0].text });
-    } catch (error) {
+    } catch (error: any) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
             console.error(error.response.status, error.response.data);
@@ -49,6 +56,9 @@ export default async function (req, res) {
     }
 }
 
-function generatePrompt(backlog) {
-    return `Please turn the following requirements based on my requirement engineering into a SCRUM backlog with features, user stories and their descriptions following the guide 'To [benefit], I would like as [role], the following [function]', formatted in Markdown: ${backlog}`;
+function generatePrompt(backlog: string) {
+    return `Please turn the following requirements based on my requirement engineering
+    into a SCRUM backlog with features, user stories and their descriptions following 
+    the guide 'To [benefit], I would like as [role], the following [function]', 
+    formatted in Markdown: ${backlog}`;
 }
