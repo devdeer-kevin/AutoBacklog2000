@@ -54,6 +54,9 @@ export default function Home() {
                 if (response.status == 200) {
                     setIsLoggedIn(true);
                 }
+                if (response.status !== 200) {
+                    alert('Go away!');
+                }
             } catch (error) {
                 console.error(error);
             }
