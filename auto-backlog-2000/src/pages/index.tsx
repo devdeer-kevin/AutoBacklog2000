@@ -141,7 +141,7 @@ export default function Home() {
             ) : (
                 <div className="">
                     <div className="h-8 mb-2">
-                        <label className="label font-semibold text-indigo-800">Login</label>
+                        <label className="label font-semibold text-indigo-800">Authentication</label>
                     </div>
                     <div className="">
                         <input
