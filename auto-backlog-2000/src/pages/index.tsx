@@ -3,10 +3,12 @@ import { useState } from 'react';
 export default function Home() {
     const [requirementInput, setRequirementInput] = useState('');
     const [result, setResult] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     async function onSubmit(event: { preventDefault: () => void }) {
         event.preventDefault();
         try {
+            setIsLoading(true);
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: {
@@ -21,6 +23,7 @@ export default function Home() {
             }
 
             setResult(data.result);
+            setIsLoading(false);
             setRequirementInput('');
         } catch (error) {
             // Consider implementing your own error handling logic here
@@ -58,9 +61,13 @@ export default function Home() {
                                 className="textarea bg-slate-50 w-full h-96 p-4 rounded-md shadow-md resize-non focus:outline-none"
                                 placeholder="Enter your requirement engineering notes here..."
                             />
-                            <button type="submit" className="btn-sm w-full btn my-6 bg-indigo-800 hover:bg-indigo-600 rounded-md text-xs normal-case disabled:bg-slate-200">
-                                Generate
-                            </button>
+                            {isLoading ? (
+                                <button className="btn-sm loading w-full btn my-6 bg-indigo-800 hover:bg-indigo-600 rounded-md text-xs normal-case disabled:bg-slate-200" />
+                            ) : (
+                                <button type="submit" className="btn-sm w-full btn my-6 bg-indigo-800 hover:bg-indigo-600 rounded-md text-xs normal-case disabled:bg-slate-200">
+                                    Generate
+                                </button>
+                            )}
                         </form>
                     </div>
                     <div className="grid">
