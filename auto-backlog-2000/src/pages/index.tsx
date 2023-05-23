@@ -4,6 +4,7 @@ export default function Home() {
     const [requirementInput, setRequirementInput] = useState('');
     const [result, setResult] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [showResult, setShowResult] = useState(false);
 
     async function onSubmit(event: { preventDefault: () => void }) {
         event.preventDefault();
@@ -24,6 +25,7 @@ export default function Home() {
 
             setResult(data.result);
             setIsLoading(false);
+            setShowResult(true);
             setRequirementInput('');
         } catch (error) {
             // Consider implementing your own error handling logic here
@@ -70,12 +72,14 @@ export default function Home() {
                             )}
                         </form>
                     </div>
-                    <div className="grid">
-                        <label className="label font-semibold text-indigo-800">Result</label>
-                        <div className="w-full text-indigo-800 h-96 text-sm pl-4 pt-6 rounded-md shadow-md bg-slate-50 overflow-auto">
-                            <p>{result}</p>
+                    {showResult && (
+                        <div className="grid">
+                            <label className="label font-semibold text-indigo-800">Result</label>
+                            <div className="w-full text-indigo-800 h-96 text-sm pl-4 pt-6 rounded-md shadow-md bg-slate-50 overflow-auto">
+                                <p>{result}</p>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </main>
