@@ -9,6 +9,7 @@ export default function Home() {
     const [resetResult, setResetResult] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [password, setPassword] = useState('');
+    const [loginFailed, setLoginFailed] = useState(false);
 
     async function onSubmit(event: { preventDefault: () => void }) {
         event.preventDefault();
@@ -46,6 +47,7 @@ export default function Home() {
 
     /** A handler to check if the password is correct. */
     const loginHandler = async () => {
+        setIsLoading(true);
         if (!password) {
             return;
         } else {
@@ -53,9 +55,13 @@ export default function Home() {
                 const response = await fetch(`/api/${password}`);
                 if (response.status == 200) {
                     setIsLoggedIn(true);
+                    setPassword('');
+                    setIsLoading(false);
                 }
                 if (response.status !== 200) {
-                    alert('Go away!');
+                    setLoginFailed(true);
+                    setPassword('');
+                    setIsLoading(false);
                 }
             } catch (error) {
                 console.error(error);
@@ -68,6 +74,7 @@ export default function Home() {
         setRequirementInput('');
         setShowResult(false);
         setResetResult(false);
+        setLoginFailed(false);
     };
 
     return (
@@ -142,11 +149,11 @@ export default function Home() {
                     </div>
                 </div>
             ) : (
-                <div className="">
+                <div>
                     <div className="h-8 mb-2">
                         <label className="label font-semibold text-indigo-800">Authentication</label>
                     </div>
-                    <div className="">
+                    <div>
                         <input
                             placeholder="Enter password"
                             value={password}
@@ -154,12 +161,21 @@ export default function Home() {
                             type="password"
                             className="input rounded-md outline-none shadow-sm focus:outline-none input-sm"
                         />
-                        <button
-                            onClick={loginHandler}
-                            className="btn-sm border-none btn bg-indigo-800 hover:bg-indigo-600 rounded-md text-xs normal-case disabled:bg-slate-200 ml-2">
-                            Login
-                        </button>
+                        {isLoading ? (
+                            <button className="btn-sm loading border-none btn bg-indigo-800 hover:bg-indigo-600 rounded-md text-sm ml-2 pl-3 pr-1" />
+                        ) : (
+                            <button
+                                onClick={loginHandler}
+                                className="btn-sm border-none btn bg-indigo-800 hover:bg-indigo-600 rounded-md text-sm normal-case disabled:bg-slate-200 ml-2">
+                                Login
+                            </button>
+                        )}
                     </div>
+                    {loginFailed && (
+                        <div className="alert-md bg-pink-600 text-slate-100 rounded-md p-1 text-sm mt-2 text-center alert-info shadow-md">
+                            <span>Ups. Try again.</span>
+                        </div>
+                    )}
                 </div>
             )}
         </main>
